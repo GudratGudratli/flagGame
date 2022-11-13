@@ -1,8 +1,16 @@
 let mainFlag = document.querySelector(".flag")
 let content = document.querySelector(".container")
 let score = document.querySelector(".score")
+
 let jsonCreate = jsonCreater()
+
 var scoreIndex = 0;
+
+const loseSound = new Audio()
+loseSound.src = "./lose.wav";
+
+const winSound = new Audio()
+winSound.src = "./win.wav";
 
 async function jsonCreater() {
     await fetch('https://restcountries.com/v3.1/all')
@@ -31,28 +39,28 @@ function Correct(randNum,rand2,rand3,rand4) {
         for (let index = 0; index < jsonCreate.length; index++) {
             if (index == randNum) {
                 btn[3].innerHTML =
-                `<button onclick="randFlag();addScore();">${jsonCreate[index].name.common}</button>`
+                `<button onclick="randFlag();winSoundPlay();addScore();">${jsonCreate[index].name.common}</button>`
             }
         }
         
         for (let index = 0; index < jsonCreate.length; index++) {
             if (index == rand2) {
                 btn[0].innerHTML =
-                `<button onclick="decreaseScore();this.remove();">${jsonCreate[index].name.common}</button>`
+                `<button onclick="decreaseScore();loseSoundPlay();this.remove();">${jsonCreate[index].name.common}</button>`
             }
         }
         
         for (let index = 0; index < jsonCreate.length; index++) {
             if (index == rand3) {
                 btn[1].innerHTML =
-                `<button onclick="decreaseScore();this.remove();">${jsonCreate[index].name.common}</button>`
+                `<button onclick="decreaseScore();loseSoundPlay();this.remove();">${jsonCreate[index].name.common}</button>`
             }
         }
 
         for (let index = 0; index < jsonCreate.length; index++) {
             if (index == rand4) {
                 btn[2].innerHTML =
-                `<button onclick="decreaseScore();this.remove();">${jsonCreate[index].name.common}</button>`
+                `<button onclick="decreaseScore();loseSoundPlay();this.remove();">${jsonCreate[index].name.common}</button>`
             }
         }
 }
@@ -81,4 +89,12 @@ function decreaseScore() {
     // parentNode.removeChild();
     scoreIndex--
     score.innerHTML = `<h1>Score: ${scoreIndex}</h1>`
+}
+
+function loseSoundPlay(){
+    loseSound.play()
+}
+
+function winSoundPlay(){
+    winSound.play()
 }
