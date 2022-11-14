@@ -80,6 +80,22 @@ function randBtn() {
     return array
 }   
 
+function Timer() {
+    const time = document.querySelector(".time")
+    let timeS = 45
+    time.innerHTML = `${timeS}`
+
+    const countDown = setInterval(() =>{
+        timeS--
+        time.innerHTML = `<h1>Remaining time:  ${timeS}</h1>`
+        if (timeS <= 0 || timeS < 1) {
+            clearInterval(countDown)
+            let main = document.querySelector("body")
+            main.innerHTML = `<h1>Game Over</h1>`
+        }
+    },1000  )
+}
+
 function addScore() {
     scoreIndex++
     score.innerHTML = `<h1>Score: ${scoreIndex}</h1>`
